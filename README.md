@@ -407,10 +407,8 @@ Rather than being restricted to a single project context, the framework should b
 
 ---
 
-## Contact
+## Author
 
-Add maintainer or team contact details here.
+Asish Kandikonda | asishk009 | asishkandikonda@gmail.com
 
-## License
-
-Add the appropriate license for this repository here.
+Guide: M Ramadasu | Scientist/Engineer ‘SF’ | Urban Studies Division | National Remote Sensing Center, Indian Space Research Organization
