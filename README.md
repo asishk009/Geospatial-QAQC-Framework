@@ -1,6 +1,6 @@
 # Geospatial QA/QC Framework for ArcGIS Pro
 
-A reusable ArcPy-based framework for large-scale geospatial QA/QC, comparative feature analysis, and batch validation in ArcGIS Pro.
+A ArcPy-based framework for large-scale geospatial QA/QC, comparative feature analysis, and batch validation in ArcGIS Pro.
 
 This repository provides a practical ArcGIS Pro workflow for teams working with one or many file geodatabases that need to be reviewed in a consistent, repeatable, and scalable way. While the framework was initially developed in the context of structured urban geospatial validation, it is not intended to be limited to a single mission or program. It can be adapted across a wide range of geospatial applications such as urban mapping, utilities, cadastral datasets, transportation layers, environmental inventories, infrastructure databases, enterprise GIS updates, and vendor-delivered geodatabases.
 
@@ -47,7 +47,7 @@ This framework can be used in a wide range of geospatial workflows, including:
 
 ## Repository structure
 
-The current repository is organized around the ArcGIS Pro toolbox and supporting source material.
+The repository is organized around the ArcGIS Pro toolbox and supporting source material.
 
 ```text
 Geospatial-QAQC-Framework/
@@ -89,12 +89,10 @@ By systematically counting features across datasets, the tool helps users identi
 - cross-region outliers
 - broader spatial context that may explain why an ROI looks different from the rest
 
-For example, if one ROI shows a significantly higher tree count than the other ROIs in the same comparison set, that may indicate a forested tract, plantation area, green belt, park-dominant region, or another land-cover pattern. That observation can then be interpreted together with other layers such as land use, building density, water features, or transport infrastructure.
+In this way, the Feature Count tool:
 
-In this way, the Feature Count tool serves two purposes:
-
-- it confirms that data is present and organized correctly
-- it provides a first-level analytical view of how feature distributions differ across geographies
+- confirms that data is present and organized correctly
+- provides a first-level analytical view of how feature distributions differ across geographies
 
 Use this tool to:
 
