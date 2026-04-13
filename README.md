@@ -1,4 +1,3 @@
-# Geospatial-QAQC-Framework
 # 🌐 GeoQC Tools — Automated Geospatial QA/QC Framework for ArcGIS Pro
 
 ![ArcGIS Pro](https://img.shields.io/badge/ArcGIS_Pro-3.x-blue?logo=esri)
