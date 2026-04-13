@@ -87,3 +87,31 @@ This framework is **not limited to any single project or domain**. It is designe
 ---
 
 ## 🏗 Architecture Overview
+┌──────────────────────────────────────────────────────────┐
+│                    GitHub Repository                     │
+│              (Master Node — Version Control)             │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│   .atbx Toolbox          .gpkx Geoprocessing Package     │
+│   ┌─────────────┐        ┌──────────────────────┐        │
+│   │ Embedded    │        │ .atbx + Schema Defs  │        │
+│   │ Python      │        │ + Relative Paths     │        │
+│   │ Scripts     │        │ (Fully Portable)     │        │
+│   └──────┬──────┘        └──────────┬───────────┘        │
+│          │                          │                    │
+└──────────┼──────────────────────────┼────────────────────┘
+│     Clone / Download     │
+▼                          ▼
+┌──────────────────────────────────────────────────────────┐
+│              Local Workstation — ArcGIS Pro              │
+│                                                          │
+│   Catalog Pane ─► Add Toolbox ─► Geoprocessing Pane      │
+│                                                          │
+│   ┌─────────────────┐    ┌───────────────────────┐       │
+│   │ Feature Count   │    │ Validate Rules        │       │
+│   │ Tool            │    │ Tool                  │       │
+│   └────────┬────────┘    └──────────┬────────────┘       │
+│            │                        │                    │
+│            ▼                        ▼                    │
+│   CSV Feature Report      Exception GDB + CSV Summary    │
+└──────────────────────────────────────────────────────────┘
