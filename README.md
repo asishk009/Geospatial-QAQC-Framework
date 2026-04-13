@@ -115,3 +115,48 @@ This framework is **not limited to any single project or domain**. It is designe
 │            ▼                        ▼                    │
 │   CSV Feature Report      Exception GDB + CSV Summary    │
 └──────────────────────────────────────────────────────────┘
+
+The framework uses a **five-stage deployment protocol**:
+
+1. **Tool Encapsulation** — Python scripts embedded directly into `.atbx` (no external `.py` files needed)
+2. **Package Compilation** — Optional `.gpkx` bundle with schema definitions and standardized relative paths
+3. **Version Control Upload** — Pushed to GitHub as the single source of truth
+4. **Retrieval & Acquisition** — Users clone or download ZIP (no admin privileges required)
+5. **Workspace Integration** — Register toolbox in ArcGIS Pro's Catalog Pane; runs as a native extension
+
+---
+
+## 📊 Performance Benchmarks
+
+Measured against established manual benchmarks:
+
+| Metric | Manual Workflow | Automated Framework | Improvement |
+|---|---|---|---|
+| **Inventory Latency** | ~15 min / GDB | ~27 sec / GDB | **97% Reduction** |
+| **Validation Latency** | ~45 min / GDB | ~2.08 min / GDB | **95% Reduction** |
+| **Batch Processing (5 GDBs)** | Sequential / Linear | Iterative — < 11 min total | **21× Acceleration** |
+| **Feature Coverage** | Sample-based | 100% Full Audit | **Complete** |
+
+---
+
+## ✅ Prerequisites
+
+| Requirement | Details |
+|---|---|
+| **ArcGIS Pro** | Version 3.x or later (with active license) |
+| **Python** | 3.9+ (bundled with ArcGIS Pro's conda environment) |
+| **ArcPy** | Included with ArcGIS Pro — no separate installation needed |
+| **Data Format** | Esri File Geodatabases (`.gdb`) |
+| **OS** | Windows 10/11 (ArcGIS Pro requirement) |
+
+> **No additional Python packages or external dependencies are required.** Everything is self-contained within the toolbox.
+
+---
+
+## 🚀 Getting Started
+
+### Step 1 — Download from GitHub
+
+**Option A: Clone the repository**
+```bash
+git clone https://github.com/<your-org>/GeoQC-Tools.git
