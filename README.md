@@ -2,7 +2,7 @@
 
 A ArcPy-based framework for large-scale geospatial QA/QC, comparative feature analysis, and batch validation in ArcGIS Pro.
 
-This repository provides a practical ArcGIS Pro workflow for teams working with one or many file geodatabases that need to be reviewed in a consistent, repeatable, and scalable way. While the framework was initially developed in the context of structured urban geospatial validation, it is not intended to be limited to a single mission or program. It can be adapted across a wide range of geospatial applications such as urban mapping, utilities, cadastral datasets, transportation layers, environmental inventories, infrastructure databases, enterprise GIS updates, and vendor-delivered geodatabases.
+This repository provides a practical ArcGIS Pro workflow for teams working with one or many file geodatabases that need to be reviewed in a consistent, iterative, and scalable way. While the framework was initially developed in the context of structured urban geospatial validation, it is not intended to be limited to a single program. It can be adapted across a wide range of geospatial applications such as urban mapping, utilities, cadastral datasets, transportation layers, environmental inventories, infrastructure databases, enterprise GIS updates, and vendor-delivered geodatabases.
 
 The framework supports:
 
@@ -22,10 +22,8 @@ This framework helps move QA/QC from isolated manual checks to a structured, too
 
 It is designed to support both:
 
-1. **comparative understanding of datasets across ROIs**, and  
-2. **repeatable rule-based validation of data quality**.
-
-That makes it useful not only for checking data correctness, but also for understanding how datasets vary from one area to another before detailed interpretation or downstream integration.
+1. **comparative understanding of datasets across ROIs**
+2. **iterative rule-based validation of data quality**.
 
 ---
 
@@ -79,7 +77,7 @@ Depending on the release or future updates, additional deployment or documentati
 
 ### 1. Feature Count
 
-The **Feature Count** tool is not limited to basic data inventory. It is designed as a comparative analytical module for examining how feature classes vary across multiple regions of interest, geodatabases, or project areas.
+The **Feature Count** tool is designed as a comparative analytical module for examining how feature classes vary across multiple regions of interest, geodatabases, or project areas.
 
 By systematically counting features across datasets, the tool helps users identify:
 
@@ -114,7 +112,7 @@ Use this tool to:
 - validate geometry, attributes, and inter-layer relationships
 - isolate exceptions for review and correction
 - create standardized outputs for audit and reporting
-- support repeatable data quality workflows across multiple geodatabases
+- support iterative data quality workflows across multiple geodatabases
 
 ---
 
@@ -187,21 +185,6 @@ To make execution easier:
 3. In the **Catalog** pane, expand **Toolboxes**.
 4. Expand **EnterpriseSpatialAnalytics.atbx**.
 5. Double-click the tool you want to run.
-
----
-
-## Quick start workflow
-
-A recommended execution sequence is:
-
-1. Download or clone the repository from GitHub.
-2. Add `EnterpriseSpatialAnalytics.atbx` to ArcGIS Pro.
-3. Run **Feature Count** to compare feature distributions, detect outliers, and verify data completeness across the selected ROIs.
-4. Review the generated comparative output.
-5. Run **Validate Rules** to perform rule-based QA/QC checks.
-6. Review the output report and any generated exception layers.
-7. Correct source data as needed.
-8. Re-run validation until the dataset meets your project standards.
 
 ---
 
