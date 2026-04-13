@@ -1,162 +1,76 @@
-# 🌐 GeoQC Tools — Automated Geospatial QA/QC Framework for ArcGIS Pro
+# Geospatial QA/QC Framework for ArcGIS Pro
 
-![ArcGIS Pro](https://img.shields.io/badge/ArcGIS_Pro-3.x-blue?logo=esri)
-![Python](https://img.shields.io/badge/Python-3.9+-yellow?logo=python)
-![ArcPy](https://img.shields.io/badge/ArcPy-green)
-![License](https://img.shields.io/badge/License-lightgrey)
+A scalable ArcGIS Pro framework for batch QA/QC of large geospatial datasets.
 
-A portable, scalable, and modular **ArcPy-based geoprocessing toolbox** for automating large-scale Quality Assurance and Quality Control (QA/QC) of geospatial vector databases within ArcGIS Pro. Designed for **batch-processing** multiple File Geodatabases simultaneously, this framework eliminates manual validation bottlenecks and brings deterministic, reproducible spatial integrity checks to any GIS project.
+This repository provides ArcPy-based tools for data inventory, rule-driven validation, and exception reporting across one or many file geodatabases. While the framework can support urban mapping programs, it is intentionally designed to be adaptable to a wide range of geospatial applications, including utilities, cadastral datasets, land records, environmental mapping, transportation layers, infrastructure inventories, and enterprise GIS data acceptance workflows.
 
----
+## Overview
 
-## 📋 Table of Contents
+Large geospatial deliveries often contain thousands to millions of features distributed across multiple geodatabases, feature datasets, and thematic layers. Manual QA/QC in such environments is slow, repetitive, and difficult to standardize.
 
-- [Why GeoQC Tools?](#-why-geoqc-tools)
-- [Key Capabilities](#-key-capabilities)
-- [Use Cases](#-use-cases)
-- [Architecture Overview](#-architecture-overview)
-- [Performance Benchmarks](#-performance-benchmarks)
-- [Prerequisites](#-prerequisites)
-- [Getting Started](#-getting-started)
-  - [Step 1 — Download from GitHub](#step-1--download-from-github)
-  - [Step 2 — Import the Toolbox into ArcGIS Pro](#step-2--import-the-toolbox-into-arcgis-pro)
-  - [Step 3 — Run the Feature Count Tool](#step-3--run-the-feature-count-tool)
-  - [Step 4 — Run the Validate Rules Tool](#step-4--run-the-validate-rules-tool)
-  - [Step 5 — Review Outputs](#step-5--review-outputs)
-- [Tool Reference](#-tool-reference)
-  - [Feature Count Tool](#1-feature-count-tool)
-  - [Validate Rules Tool](#2-validate-rules-tool)
-- [Validation Rules Engine](#-validation-rules-engine)
-- [Outputs Explained](#-outputs-explained)
-- [Customization & Extensibility](#-customization--extensibility)
-  - [Adding New Validation Rules](#adding-new-validation-rules)
-  - [Adapting to a New Project Schema](#adapting-to-a-new-project-schema)
-- [Maintenance](#-maintenance)
-- [Repository Structure](#-repository-structure)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Acknowledgements](#-acknowledgements)
+This framework helps teams move from manual inspection to repeatable, parameter-driven validation inside ArcGIS Pro. It supports:
 
----
+- inventorying feature classes and record counts across multiple geodatabases
+- running deterministic QA/QC checks on geometry, attributes, and spatial relationships
+- producing review-ready outputs for correction and audit
+- batch execution across multiple datasets from a single interface
+- adapting the logic to different schemas, naming conventions, and project standards
 
-## 🔍 Why GeoQC Tools?
+## Typical Use Cases
 
-Manual validation of high-volume vector datasets using standard GUI tools is **repetitive, time-consuming, and prone to human error**. As geospatial datasets grow in scale — spanning thousands of features across multiple geodatabases — the absence of a unified, automated validation framework leads to:
+This framework can be used in many geospatial QA/QC contexts, such as:
 
-- **Subjective interpretations** of topology rules by different analysts
-- **Inconsistent data quality** and false positives
-- **Severe bottlenecks** in production and delivery pipelines
+- pre-delivery validation of vendor-submitted geodatabases
+- acceptance checks for enterprise GIS updates
+- land use and base map quality control
+- utility and infrastructure layer validation
+- building, parcel, and polygon geometry screening
+- multi-city or multi-region geospatial program monitoring
+- project-based geodatabase audits before publication or integration
 
-GeoQC Tools replaces this fragmented manual workflow with a **centralized, algorithmic, batch-processing engine** that delivers objective, reproducible results with 100% feature coverage.
+## Core Tools
 
----
+### 1. Feature Count
 
-## ⚡ Key Capabilities
+The **Feature Count** tool acts as a data inventory and completeness check.
 
-| Capability | Description |
-|---|---|
-| **Automated Data Inventory** | Recursively traverses directories to discover, catalog, and count every feature class across multiple File Geodatabases in a single run |
-| **Deterministic Validation Engine** | Executes 22+ topological and attribute integrity checks using rigid spatial logic |
-| **Batch Processing** | Processes multiple GDBs simultaneously — no manual iteration required |
-| **Non-Destructive Auditing** | Logs all non-conformities into a separate **Exception Geodatabase** without altering source data |
-| **In-Memory Processing** | Leverages `in_memory` workspaces and optimized cursors to process spatial joins entirely in RAM |
-| **Configurable Thresholds** | User-defined metric thresholds for line length, polygon area, and building area |
-| **Selective Execution** | Choose specific geodatabases and/or specific rules to run — or run everything at once |
-| **Portable Deployment** | Delivered as `.atbx` (ArcGIS Toolbox) and `.gpkx` (Geoprocessing Package) — zero external dependencies |
-| **Modular Architecture** | Seamlessly add, remove, or modify validation rules without disrupting existing functionality |
+It scans geodatabases, identifies feature classes, and produces a consolidated feature count report. This is useful as a first-pass validation step before running deeper QA/QC checks.
 
----
+Use this tool to:
 
-## 🌍 Use Cases
+- verify that expected layers are present
+- compare record counts across geodatabases
+- identify missing or empty feature classes
+- create a quick inventory report for large submissions
 
-This framework is **not limited to any single project or domain**. It is designed to be adapted and integrated into any large-scale geospatial QA/QC pipeline, including but not limited to:
+### 2. Validate Rules
 
-| Domain | Example Application |
-|---|---|
-| **Urban Planning & Smart Cities** | Validate digitized urban features (buildings, roads, land use) from high-resolution satellite imagery |
-| **Cadastral / Land Records** | Check for overlapping parcels, gaps between boundaries, and attribute consistency |
-| **Utility Network Mapping** | Detect dangles, disconnected lines, and duplicate infrastructure features |
-| **Environmental & Forestry GIS** | Validate land cover polygons for slivers, overlaps, and minimum mapping unit compliance |
-| **Transportation & Road Networks** | Ensure topological connectivity, detect short line segments, and validate attribute domains |
-| **Disaster Management / Emergency Mapping** | Rapid QC of crisis-generated vector data before integration into response platforms |
-| **National Mapping Programs** | Batch-validate multi-city, multi-state geodatabases against standardized schema requirements |
-| **Defence & Intelligence Geospatial** | Enforce strict geometric and attribute standards across classified datasets |
+The **Validate Rules** tool acts as the primary QA/QC engine.
 
-> **The modular rule engine can be customized to enforce any organization's data standards — simply define your validation logic, map it to the rule engine, and deploy.**
+It runs deterministic validation checks across datasets and generates structured outputs for review. The tool is intended to identify non-conformities without altering the source data.
 
----
+Use this tool to:
 
-## 🏗 Architecture Overview
-┌──────────────────────────────────────────────────────────┐
-│                    GitHub Repository                     │
-│              (Master Node — Version Control)             │
-├──────────────────────────────────────────────────────────┤
-│                                                          │
-│   .atbx Toolbox          .gpkx Geoprocessing Package     │
-│   ┌─────────────┐        ┌──────────────────────┐        │
-│   │ Embedded    │        │ .atbx + Schema Defs  │        │
-│   │ Python      │        │ + Relative Paths     │        │
-│   │ Scripts     │        │ (Fully Portable)     │        │
-│   └──────┬──────┘        └──────────┬───────────┘        │
-│          │                          │                    │
-└──────────┼──────────────────────────┼────────────────────┘
-│     Clone / Download     │
-▼                          ▼
-┌──────────────────────────────────────────────────────────┐
-│              Local Workstation — ArcGIS Pro              │
-│                                                          │
-│   Catalog Pane ─► Add Toolbox ─► Geoprocessing Pane      │
-│                                                          │
-│   ┌─────────────────┐    ┌───────────────────────┐       │
-│   │ Feature Count   │    │ Validate Rules        │       │
-│   │ Tool            │    │ Tool                  │       │
-│   └────────┬────────┘    └──────────┬────────────┘       │
-│            │                        │                    │
-│            ▼                        ▼                    │
-│   CSV Feature Report      Exception GDB + CSV Summary    │
-└──────────────────────────────────────────────────────────┘
+- run repeatable QA/QC checks at scale
+- flag geometry, attribute, and inter-layer issues
+- isolate exceptions for review and correction
+- create standardized outputs for reporting and audit
 
-The framework uses a **five-stage deployment protocol**:
+## Requirements
 
-1. **Tool Encapsulation** — Python scripts embedded directly into `.atbx` (no external `.py` files needed)
-2. **Package Compilation** — Optional `.gpkx` bundle with schema definitions and standardized relative paths
-3. **Version Control Upload** — Pushed to GitHub as the single source of truth
-4. **Retrieval & Acquisition** — Users clone or download ZIP (no admin privileges required)
-5. **Workspace Integration** — Register toolbox in ArcGIS Pro's Catalog Pane; runs as a native extension
+Before using the tools, make sure you have:
 
----
+- **ArcGIS Pro** installed
+- access to **ArcPy** through the ArcGIS Pro Python environment
+- one or more **File Geodatabases (.gdb)** to process
+- permission to download or clone the repository from GitHub
+- a local folder where outputs can be written
 
-## 📊 Performance Benchmarks
+## Access the Repository from GitHub
 
-Measured against established manual benchmarks:
+You can retrieve the tools from the hosted GitHub repository in either of the following ways.
 
-| Metric | Manual Workflow | Automated Framework | Improvement |
-|---|---|---|---|
-| **Inventory Latency** | ~15 min / GDB | ~27 sec / GDB | **97% Reduction** |
-| **Validation Latency** | ~45 min / GDB | ~2.08 min / GDB | **95% Reduction** |
-| **Batch Processing (5 GDBs)** | Sequential / Linear | Iterative — < 11 min total | **21× Acceleration** |
-| **Feature Coverage** | Sample-based | 100% Full Audit | **Complete** |
+### Option A: Clone the repository
 
----
-
-## ✅ Prerequisites
-
-| Requirement | Details |
-|---|---|
-| **ArcGIS Pro** | Version 3.x or later (with active license) |
-| **Python** | 3.9+ (bundled with ArcGIS Pro's conda environment) |
-| **ArcPy** | Included with ArcGIS Pro — no separate installation needed |
-| **Data Format** | Esri File Geodatabases (`.gdb`) |
-| **OS** | Windows 10/11 (ArcGIS Pro requirement) |
-
-> **No additional Python packages or external dependencies are required.** Everything is self-contained within the toolbox.
-
----
-
-## 🚀 Getting Started
-
-### Step 1 — Download from GitHub
-
-**Option A: Clone the repository**
 ```bash
-git clone https://github.com/<your-org>/GeoQC-Tools.git
+git clone <repository-url>
