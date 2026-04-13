@@ -2,8 +2,8 @@
 
 ![ArcGIS Pro](https://img.shields.io/badge/ArcGIS_Pro-3.x-blue?logo=esri)
 ![Python](https://img.shields.io/badge/Python-3.9+-yellow?logo=python)
-![ArcPy](https://img.shields.io/badge/ArcPy-Enabled-green)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+![ArcPy](https://img.shields.io/badge/ArcPy-green)
+![License](https://img.shields.io/badge/License-lightgrey)
 
 A portable, scalable, and modular **ArcPy-based geoprocessing toolbox** for automating large-scale Quality Assurance and Quality Control (QA/QC) of geospatial vector databases within ArcGIS Pro. Designed for **batch-processing** multiple File Geodatabases simultaneously, this framework eliminates manual validation bottlenecks and brings deterministic, reproducible spatial integrity checks to any GIS project.
 
